@@ -19,11 +19,12 @@ body {
     min-width: 25%;
     background-size: cover;
     background-position: center;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, filter 0.5s ease;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
     overflow: hidden;
+    filter: grayscale(0%);
 }
 
 .gallery-img .img-info {
@@ -31,7 +32,8 @@ body {
     color: white;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     transition: padding-bottom 0.5s ease;
-    z-index: 2; /* Ensures .img-info is above the pseudo-element */
+    z-index: 2;
+    pointer-events: none;
 }
 
 .gallery-img h2 {
@@ -55,6 +57,7 @@ body {
 
 .gallery-img:hover {
     transform: scale(1.05);
+    filter: grayscale(100%);
 }
 
 .gallery-img:hover .know-more {
@@ -69,6 +72,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    filter: grayscale(0%);
     transition: opacity 0.5s ease, filter 0.5s ease;
 }
 
@@ -80,34 +84,62 @@ body {
 
 .gallery-img:hover::before {
     opacity: 1;
+    filter: grayscale(100%);
 }
 
 .gallery-img::after {
     background-image: inherit;
     background-size: inherit;
     background-position: inherit;
-    filter: blur(0);
     z-index: 1;
     opacity: 0;
 }
 
 .gallery-img:hover::after {
-    filter: blur(5px); /* Adjust the blur amount as needed */
+    filter: blur(5px);
+    filter: grayscale(100%);
     opacity: 1;
 }
 
 .gallery-img:hover .img-info {
     padding-bottom: 30px;
+    pointer-events: none;
+    
+}
+
+.gallery-img {
+    width: 25%;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width: 992px) {
+    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
+        font-size: 3vw;
+    }
 }
 
 @media (max-width: 768px) {
-    .gallery-img {
-        min-width: 50%;
+    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
+        font-size: 3.5vw;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
+        font-size: 4vw;
     }
 }
 
 @media (max-width: 480px) {
-    .gallery-img {
-        min-width: 100%;
+    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
+        font-size: 4.5vw;
     }
 }
+
+
