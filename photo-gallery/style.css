@@ -6,6 +6,7 @@ body {
     font-style: normal;
     overflow: hidden;
 }
+
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
@@ -22,12 +23,15 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
+    overflow: hidden;
 }
 
 .gallery-img .img-info {
     margin: 20px;
     color: white;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    transition: padding-bottom 0.5s ease;
+    z-index: 2; /* Ensures .img-info is above the pseudo-element */
 }
 
 .gallery-img h2 {
@@ -42,7 +46,7 @@ body {
 
 .gallery-img .know-more {
     display: none;
-    color: rgb(0, 166, 255);
+    color: rgb(89, 222, 255);
     text-decoration: none;
     font-weight: bolder;
     font-size: 18px;
@@ -51,35 +55,50 @@ body {
 
 .gallery-img:hover {
     transform: scale(1.05);
-    background-image: black;
-
 }
 
 .gallery-img:hover .know-more {
     display: block;
 }
-.gallery-img::before {
+
+.gallery-img::before,
+.gallery-img::after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
     transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.gallery-img::before {
+    background: rgba(0, 0, 0, 0.5);
     opacity: 0;
-    filter: blur(0);
     z-index: 1;
 }
+
 .gallery-img:hover::before {
     opacity: 1;
-    filter: blur(5px);
 }
 
-.gallery-img:hover .know-more {
-    display: block;
+.gallery-img::after {
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    filter: blur(0);
+    z-index: 1;
+    opacity: 0;
 }
 
+.gallery-img:hover::after {
+    filter: blur(5px); /* Adjust the blur amount as needed */
+    opacity: 1;
+}
+
+.gallery-img:hover .img-info {
+    padding-bottom: 30px;
+}
 
 @media (max-width: 768px) {
     .gallery-img {
