@@ -75,7 +75,7 @@ body {
 
 /* Apply the filter and scale effect on hover */
 .gallery-image:hover::before {
-    filter: grayscale(100%) blur(5px) hue-rotate(50deg) saturate(0%) brightness(50%) contrast(100%);
+    filter: grayscale(100%) blur(8px) hue-rotate(50deg) saturate(0%) brightness(30%) contrast(100%);
     transform: scale(1.05);
 }
 
