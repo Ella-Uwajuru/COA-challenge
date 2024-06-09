@@ -1,3 +1,4 @@
+/* Reset the margin and use a sans-serif font */
 body {
     margin: 0;
     font-family: "Roboto Condensed", sans-serif;
@@ -7,139 +8,110 @@ body {
     overflow: hidden;
 }
 
-.gallery-container {
+/* Create a responsive gallery layout using flexbox */
+.gallery {
     display: flex;
     flex-wrap: wrap;
     height: 100vh;
 }
 
-.gallery-img {
+/* Style each image in the gallery */
+.gallery-image {
     position: relative;
-    flex: 1;
+    flex: 0 1 25%; /* Change flex property to allow 4 images per row */
     min-width: 25%;
     background-size: cover;
     background-position: center;
-    transition: transform 0.5s ease, filter 0.5s ease;
+    transition: transform 0.5s ease;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    overflow: hidden;
-    filter: grayscale(0%);
+    overflow: hidden; /* Ensures pseudo-element doesn't overflow */
 }
 
-.gallery-img .img-info {
+/* Style the information overlay on the gallery images */
+.gallery-image .info {
+    position: relative;
     margin: 20px;
     color: white;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    transition: padding-bottom 0.5s ease;
-    z-index: 2;
-    pointer-events: none;
+    z-index: 2; /* Ensure text is in front of pseudo-element */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Add transition for transform and opacity */
 }
 
-.gallery-img h2 {
+/* Style the heading and paragraph within the information overlay */
+.gallery-image h2 {
     margin: 0;
     font-size: 24px;
 }
 
-.gallery-img p {
+.gallery-image p {
     margin: 5px 0 0;
     font-size: 18px;
 }
 
-.gallery-img .know-more {
+/* Style the "Know More" link within the information overlay */
+.gallery-image .know-more {
     display: none;
-    color: rgb(89, 222, 255);
+    color: aqua;
     text-decoration: none;
     font-weight: bolder;
     font-size: 18px;
     margin-top: 10px;
 }
 
-.gallery-img:hover {
-    transform: scale(1.05);
-    filter: grayscale(100%);
-}
-
-.gallery-img:hover .know-more {
-    display: block;
-}
-
-.gallery-img::before,
-.gallery-img::after {
+/* Create a pseudo-element to apply a filter and scale effect on hover */
+.gallery-image::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    filter: grayscale(0%);
-    transition: opacity 0.5s ease, filter 0.5s ease;
+    background: inherit;
+    z-index: 1; /* Ensure it's behind the text */
+    transition: filter 0.5s ease, transform 0.5s ease;
 }
 
-.gallery-img::before {
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    z-index: 1;
+/* Apply the filter and scale effect on hover */
+.gallery-image:hover::before {
+    filter: grayscale(100%) blur(5px) hue-rotate(50deg) saturate(0%) brightness(50%) contrast(100%);
+    transform: scale(1.05);
 }
 
-.gallery-img:hover::before {
-    opacity: 1;
-    filter: grayscale(100%);
+/* Move the information overlay up and make it fully visible on hover */
+.gallery-image:hover .info {
+    transform: translateY(-20px); /* Move the info section up */
+    opacity: 1; /* Ensure the info section is fully visible */
 }
 
-.gallery-img::after {
-    background-image: inherit;
-    background-size: inherit;
-    background-position: inherit;
-    z-index: 1;
-    opacity: 0;
+/* Show the "Know More" link on hover */
+.gallery-image:hover .know-more {
+    display: block;
 }
 
-.gallery-img:hover::after {
-    filter: blur(5px);
-    filter: grayscale(100%);
-    opacity: 1;
-}
-
-.gallery-img:hover .img-info {
-    padding-bottom: 30px;
-    pointer-events: none;
-    
-}
-
-.gallery-img {
-    width: 25%;
-}
-
-/* Media Queries */
-@media (max-width: 1200px) {
-    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
-        font-size: 2.5vw;
+/* Media query for smaller screens: hide the caption */
+@media (max-width: 767px) {
+    .caption {
+        display: none;
     }
 }
 
-@media (max-width: 992px) {
-    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
-        font-size: 3vw;
+/* Media query for larger screens: adjust the gallery layout and show the caption */
+@media (min-width: 768px) {
+    .gallery-image {
+        flex: 1 1 25%;
+    }
+    .caption {
+        display: block;
+        bottom: 40px;
+        left: 40px;
     }
 }
 
-@media (max-width: 768px) {
-    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
-        font-size: 3.5vw;
+/* Media query for extra-small screens: hide the information overlay */
+@media(max-width: 480px){
+    .gallery-image .info{
+       display: none;
     }
 }
-
-@media (max-width: 576px) {
-    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
-        font-size: 4vw;
-    }
-}
-
-@media (max-width: 480px) {
-    .gallery-img h2, .gallery-img p, .gallery-img .know-more {
-        font-size: 4.5vw;
-    }
-}
-
-
